@@ -3,7 +3,7 @@ import fs from 'fs'
 
 // CLI: API Data fetcher & Updater
 
-// TODOS: 
+// OUR TODOS: 
 // X Northwind API aufrufen
 // X Random Sales an jede SalesPerson hinzufügen
 
