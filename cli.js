@@ -15,8 +15,29 @@ const getRandomNumInRange = (minimum, maximum) => {
   return Math.floor(Math.random() * (maximum-minimum)) + minimum
 }
 
+// get top sales people as array
+const getTopSalesPerson = (arrSalesPeople = []) => {
+
+  if(!arrSalesPeople.length) return
+
+  // sort all people by sales top to bottom
+  // afterwards merge sales person with new bonus field to new object
+  return {
+    ...arrSalesPeople.sort((a, b) => b.salesInEuro - a.salesInEuro)[0],
+    bonusInEuro: getRandomNumInRange( 10, 25 ),
+  };
+
+  // const topSalesPerson = arrSalesPeople.sort((a, b) => b.salesInEuro - a.salesInEuro)[0]
+  // return {
+  //   ...topSalesPerson, 
+  //   bonusInEuro: getRandomNumInRange( 10, 25 )
+  // }
+
+
+}
+
 // get API data and convert to the format we want
-const getApiData = async () => {
+const getApiDataAndSaveFormatted = async () => {
 
   const API_URL = "https://raw.githubusercontent.com/graphql-compose/graphql-compose-examples/master/examples/northwind/data/json/employees.json"
 
@@ -24,7 +45,7 @@ const getApiData = async () => {
   const data = await res.json() // parse JSON Daten in JS Object 
   
   // convert all sales people to the format we want
-  const result = data.map( person => {
+  const arrSalesPeople = data.map( person => {
   
     const personFormatNew = {
         id: person.employeeID,
@@ -37,7 +58,7 @@ const getApiData = async () => {
 
   // write all sales people to FILE
   // => we write binary or string data to file
-  const jsonResult = JSON.stringify( result )
+  const jsonResult = JSON.stringify( arrSalesPeople )
 
   try {
     fs.writeFileSync('./data/salespeople.json', jsonResult)
@@ -45,10 +66,27 @@ const getApiData = async () => {
   catch(err) {
     console.log(err)
   }
-  
+
+
+  // write TOP sales person to file
+  // im Array suche die SalesPerson mit dem höchsten "salesInEuro" wert
+
+  const topSalesPerson = getTopSalesPerson( arrSalesPeople )
+
+  console.log( topSalesPerson )
+
+  const jsonTopSalesPerson = JSON.stringify( topSalesPerson ) // convert object into JSON String
+
+  try {
+    fs.writeFileSync('./data/topsalesperson.json', jsonTopSalesPerson)
+  }
+  catch(err) {
+    console.log(err)
+  }
+
 }
 
-getApiData()
+getApiDataAndSaveFormatted()
 
 
 // map um alle Einträge in ein NEUES Format zu machen
