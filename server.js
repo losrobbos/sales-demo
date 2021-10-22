@@ -1,7 +1,11 @@
 import express from 'express'
 import fs from 'fs'
+import cors from 'cors'
 
 const app = express() // create me an API instance
+
+// GRANT ACCESS TO MY API FROM EVERYWHERE !
+app.use( cors() ) // middleware => register some plugin
 
 // res.write() // send piece of body
 // res.write()
