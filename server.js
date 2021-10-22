@@ -17,7 +17,6 @@ app.get("/", (req, res) => {
 app.get("/salespeople", (req, res) => {
 
   const strFileContent = fs.readFileSync('./data/salespeople.json', 'utf-8')
-
   const arrSalesPeople = JSON.parse( strFileContent ) // convert str to array of objects
 
   // res.send stringifies all JS data to JSON string for us => sendet JSON an Browser
@@ -42,11 +41,5 @@ const PORT = 5000
 app.listen( PORT,  () => {
   console.log(`API started on http://localhost:${PORT}`)
 })
-
-// API
-// 2 routes
-
-// Route 1: /salesperson => liest Datei sales.json
-// Route 2: /topsalesperson => liest Datei topsales.json
 
 
