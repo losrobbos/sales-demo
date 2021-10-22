@@ -3,13 +3,13 @@ import fs from 'fs'
 
 // CLI: API Data fetcher & Updater
 
+// TODOS: 
 // X Northwind API aufrufen
 // X Random Sales an jede SalesPerson hinzufügen
 
 // X Daten in JSON Datei abspeichern (wenn Datei schon existiert => überschreiben)
 
-// TOP Sales Person bekommt BONUS und eigene Datei
-// bonus: 10-25 (random)
+// X TOP Sales Person bekommt BONUS und eigene Datei. bonus between: 10-25 (random)
 
 const getRandomNumInRange = (minimum, maximum) => {
   return Math.floor(Math.random() * (maximum-minimum)) + minimum
