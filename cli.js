@@ -1,11 +1,12 @@
 import fetch from 'node-fetch'
-// import axios from 'axios'
+import fs from 'fs'
 
 // CLI: API Data fetcher & Updater
 
-// Northwind API aufrufen
-// Random Sales an jede SalesPerson hinzufügen
-// Daten in JSON Datei abspeichern (wenn Datei schon existiert => überschreiben)
+// X Northwind API aufrufen
+// X Random Sales an jede SalesPerson hinzufügen
+
+// X Daten in JSON Datei abspeichern (wenn Datei schon existiert => überschreiben)
 
 // TOP Sales Person bekommt BONUS und eigene Datei
 // bonus: 10-25 (random)
@@ -22,6 +23,7 @@ const getApiData = async () => {
   const res = await fetch(API_URL) // mache FETCH call zur API
   const data = await res.json() // parse JSON Daten in JS Object 
   
+  // convert all sales people to the format we want
   const result = data.map( person => {
   
     const personFormatNew = {
@@ -32,8 +34,18 @@ const getApiData = async () => {
     }
     return personFormatNew
   }) 
+
+  // write all sales people to FILE
+  // => we write binary or string data to file
+  const jsonResult = JSON.stringify( result )
+
+  try {
+    fs.writeFileSync('./data/salespeople.json', jsonResult)
+  }
+  catch(err) {
+    console.log(err)
+  }
   
-  console.log( result )
 }
 
 getApiData()
